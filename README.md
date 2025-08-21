@@ -152,16 +152,6 @@ The client communicates with the AirTrack server using JSON messages:
 
 ## 🛠️ Development
 
-### Project Structure
-```
-AirTrackClient/
-├── App.tsx              # Main application component
-├── package.json          # Dependencies and scripts
-├── app.json             # Expo configuration
-├── assets/              # Images and icons
-└── README.md            # This file
-```
-
 ### Key Dependencies
 
 - **expo**: React Native framework
