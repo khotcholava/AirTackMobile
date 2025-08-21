@@ -8,7 +8,6 @@ import {
 } from "react-native-gesture-handler";
 
 import { useWebSocket } from './src/hooks/useWebSocket';
-import { useUDP } from './src/hooks/useUDP';
 import { useTrailManager } from './src/hooks/useTrailManager';
 import { useGestureHandlers } from './src/hooks/useGestureHandlers';
 import { TrailOverlay } from './src/components/TrailOverlay';
@@ -17,7 +16,6 @@ import { trackpadStyles } from './src/styles/trackpadStyles';
 
 export default function App() {
   const { sendMessage } = useWebSocket();
-  const { sendUDPMessage } = useUDP();
   const { trailPoints, addTrailPoint, createTrailPath } = useTrailManager();
   const {
     currentTouch,
@@ -25,7 +23,7 @@ export default function App() {
     handlePan,
     handleSingleTap,
     handleDoubleTap
-  } = useGestureHandlers({ sendMessage, sendUDPMessage, addTrailPoint });
+  } = useGestureHandlers({ sendMessage, addTrailPoint });
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

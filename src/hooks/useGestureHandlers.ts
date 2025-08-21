@@ -1,16 +1,15 @@
 import { useRef, useCallback, useState } from 'react';
 import { Animated } from 'react-native';
 import { State } from 'react-native-gesture-handler';
-import { TouchPosition, WebSocketMessage, UDPMessage } from '../types';
+import { TouchPosition, WebSocketMessage } from '../types';
 import { MOVEMENT_SENSITIVITY, THROTTLE_MS } from '../constants/config';
 
 interface UseGestureHandlersProps {
   sendMessage: (message: WebSocketMessage) => void;
-  sendUDPMessage: (message: UDPMessage) => void;
   addTrailPoint: (x: number, y: number) => void;
 }
 
-export const useGestureHandlers = ({ sendMessage, sendUDPMessage, addTrailPoint }: UseGestureHandlersProps) => {
+export const useGestureHandlers = ({ sendMessage, addTrailPoint }: UseGestureHandlersProps) => {
   const lastPosition = useRef({ x: 0, y: 0 });
   const lastSentTime = useRef(0);
   const [currentTouch, setCurrentTouch] = useState<TouchPosition | null>(null);
@@ -23,13 +22,13 @@ export const useGestureHandlers = ({ sendMessage, sendUDPMessage, addTrailPoint 
       return;
     }
 
-    sendUDPMessage({
+    sendMessage({
       type: "move",
       dx: Math.round(dx * MOVEMENT_SENSITIVITY),
       dy: Math.round(dy * MOVEMENT_SENSITIVITY),
     });
     lastSentTime.current = now;
-  }, [sendUDPMessage]);
+  }, [sendMessage]);
 
   const handlePan = useCallback((event: any) => {
     const { absoluteX, absoluteY, state } = event.nativeEvent;
